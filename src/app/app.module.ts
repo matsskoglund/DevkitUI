@@ -4,17 +4,29 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
-
+import { RouterModule } from '@angular/router';
+import { HomeComponent } from './home.component';
+import { DevkitComponent } from './devkit.component';
+//import { NavMenuComponent} from './navmenu.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    DevkitComponent
+   // NavMenuComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot([
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
+      { path: 'devkit', component: DevkitComponent },      
+      { path: '**', redirectTo: 'home' }
+  ])
   ],
   providers: [ 
     { provide: 'BASE_URL', useFactory: getBaseUrl }

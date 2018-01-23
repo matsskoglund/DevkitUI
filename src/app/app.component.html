@@ -1,26 +1,7 @@
-<section class="light ux-sections">
-  <div class="container text-center">
-    <img src="assets/icons/fw_dev_onprem.png" style="width:125px;">
-    <h2>Devkit for .NET Framework developers</h2>
-    <p>For developers working in .NET Framework we have a set of resources that help you get going with your development with a swosh. Check out the items in the Devkit below and get them by clicking the links one by one in the right column. </p>
-    <div class="row">  
-      <table class="table table-striped table-clickable table-panel" *ngIf="ToolsInventory">
-        <thead>
-          <tr>                                
-            <th>Name</th>                                
-            <th>Description</th>
-            <th><span class="text-nowrap">Get it</span></th>
-          </tr>
-        </thead>
-        <p *ngIf="!ToolsInventory"><em>Loading Tools please Wait ! ...</em></p>
-        <tbody *ngFor="let INVY  of ToolsInventory">                          
-          <tr>                                
-            <td><a href="{{INVY.urlRef}}" target="_blank"><span class="text-nowrap">{{INVY.name}}</span></a></td>
-            <td>{{INVY.description}}</td>
-            <td><a href="{{INVY.aquire}}" target="_blank"><span class="text-nowrap">Get</span></a></td>
-          </tr>
-        </tbody>
-       </table>
+<div class='container-fluid'>
+    <div class='row'>
+        <div class='col-sm-9 body-content'>
+            <router-outlet></router-outlet>
+        </div>
     </div>
-  </div>    
-</section>
+</div>

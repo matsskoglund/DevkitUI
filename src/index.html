@@ -12,9 +12,16 @@
 <body class="scania">
     <c-corporate-header site-name="Devtools" site-url="https://devtools.scania.com">
     </c-corporate-header>
-    <c-main-content>
-
-  <app-root></app-root>
+    <c-main-content>        
+        <c-main-navigation show-search>
+            <primary-items>
+              <nav-item location="/home">Home</nav-item>
+              <nav-item location="/devkit">Devkit</nav-item>            
+            </primary-items>
+          </c-main-navigation>
+          <div class="container text-center">
+        <app-root></app-root>
+          </div>
 </c-main-content>
 
 <c-corporate-footer>
