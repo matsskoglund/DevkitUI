@@ -13,8 +13,7 @@ import { DevkitComponent } from './devkit.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    DevkitComponent
-   // NavMenuComponent
+    DevkitComponent   
   ],
   imports: [
     CommonModule,
@@ -24,8 +23,8 @@ import { DevkitComponent } from './devkit.component';
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
-      { path: 'devkit', component: DevkitComponent },      
-      { path: '**', redirectTo: 'home' }
+      { path: 'devkit/:id', component: DevkitComponent }   
+      //{ path: '**', redirectTo: 'home' }
   ])
   ],
   providers: [ 

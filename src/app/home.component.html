@@ -1,26 +1,23 @@
 <section class="light ux-sections">
         <div class="container text-center" >
           <img src="assets/icons/fw_dev_onprem.png" style="width:125px;">
-          <div *ngIf="Devkit">
-          <h2>{{Devkit.name}}</h2>
-          <p>{{Devkit.description}}</p>
-          <i>Designed by {{Devkit.email}}</i>
+          <div *ngIf="DevkitsInventory">
+          <h2>Devkits</h2>
+          <p>Below are all our devkits</p>          
         </div>
           <div class="row">  
-            <table class="table table-striped table-clickable table-panel" *ngIf="ToolsInventory">
+            <table class="table table-striped table-clickable table-panel" *ngIf="DevkitsInventory">
               <thead>
                 <tr>                                
                   <th>Name</th>                                
-                  <th>Description</th>
-                  <th><span class="text-nowrap">Get it</span></th>
+                  <th>Description</th>                  
                 </tr>
               </thead>
-              <p *ngIf="!ToolsInventory"><em>Loading Tools please Wait ! ...</em></p>
-              <tbody *ngFor="let INVY  of ToolsInventory">                          
+              <p *ngIf="!DevkitsInventory"><em>Loading Devkits please Wait ! ...</em></p>
+              <tbody *ngFor="let Devkit of DevkitsInventory">                          
                 <tr>                                
-                  <td><a href="{{INVY.urlRef}}" target="_blank"><span class="text-nowrap">{{INVY.name}}</span></a></td>
-                  <td>{{INVY.description}}</td>
-                  <td><a href="{{INVY.aquire}}" target="_blank"><span class="text-nowrap">Get</span></a></td>
+                  <td><a [routerLink]="['/devkit', Devkit.devkitID]"><span class="text-nowrap">{{Devkit.name}}</span></a></td>
+                  <td><a [routerLink]="['/devkit', Devkit.devkitID]">{{Devkit.description}}</a></td>                
                 </tr>
               </tbody>
              </table>
