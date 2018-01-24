@@ -10,13 +10,15 @@
               <thead>
                 <tr>                                
                   <th>Name</th>                                
-                  <th>Description</th>                  
+                  <th>Description</th>  
+                  <td>Extra</td>                  
                 </tr>
               </thead>
               <p *ngIf="!DevkitsInventory"><em>Loading Devkits please Wait ! ...</em></p>
               <tbody *ngFor="let Devkit of DevkitsInventory">                          
                 <tr>                                
                   <td><a [routerLink]="['/devkit', Devkit.devkitID]"><span class="text-nowrap">{{Devkit.name}}</span></a></td>
+                  <td><a [routerLink]="['/devkit', Devkit.devkitID]">{{Devkit.description}}</a></td>  
                   <td><a [routerLink]="['/devkit', Devkit.devkitID]">{{Devkit.description}}</a></td>                
                 </tr>
               </tbody>
