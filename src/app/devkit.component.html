@@ -1,6 +1,5 @@
 <section class="light ux-sections">
-        <div class="container text-center" >
-          <img src="assets/icons/fw_dev_onprem.png" style="width:125px;">
+        <div class="container text-center" >          
           <div *ngIf="Devkit">
           <h2>{{Devkit.name}}</h2>
           <p>{{Devkit.description}}</p>
@@ -20,7 +19,7 @@
                 <tr>                                
                   <td><a href="{{INVY.urlRef}}" target="_blank"><span class="text-nowrap">{{INVY.name}}</span></a></td>
                   <td>{{INVY.description}}</td>
-                  <td><a href="{{INVY.aquire}}" target="_blank"><span class="text-nowrap">Get</span></a></td>
+                  <td><a href="{{INVY.aquire}}" target="_blank"><span class="text-nowrap">{{INVY.aquireType}}</span></a></td>
                 </tr>
               </tbody>
              </table>

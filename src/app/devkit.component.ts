@@ -1,6 +1,7 @@
 import { Component, Input, Inject  } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { FormsModule } from '@angular/forms';  
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'devkit',
@@ -14,18 +15,22 @@ export class DevkitComponent {
   AddTable: Boolean = false;  
   public sToolID: number = 0;
   public sAquire = "";
-  public sCategoryID: number = 0;
+  public sAquireType = "";
   public sDescription = "";
   public sName = "";
   public sUrlRef = "";
   public bseUrl: string = ""; 
   myName: string;
 
-  constructor(public http: Http, @Inject('BASE_URL') baseUrl: string) {
+  constructor(public http: Http, @Inject('BASE_URL') baseUrl: string, private route: ActivatedRoute) {
     this.myName = "Devkit"; 
     this.bseUrl = "http://localhost:5000/";
-    this.getData(2);
-    this.getDevKitData(2);
+    this.route.params.subscribe( params => 
+      {
+        this.getData(params['id']);
+        this.getDevKitData(params['id']);
+      }
+    );
   }
   getData(devkitid: number) {
     this.http.get(this.bseUrl + 'api/Devkits/tools/' + devkitid).subscribe(result => {
@@ -44,6 +49,7 @@ export class DevkitComponent {
 export interface InventoryMaster {
   toolID: number;
   aquire: string;
+  aquireType: string;
   categoryID: number;
   description: string;
   name: string;
@@ -52,6 +58,7 @@ export interface InventoryMaster {
 
 export interface DevkitMaster {
   devkitID: number;
+  shortName:string;
   name: string;
   description: string;
   email: string;

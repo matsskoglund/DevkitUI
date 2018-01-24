@@ -7,13 +7,14 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { DevkitComponent } from './devkit.component';
-//import { NavMenuComponent} from './navmenu.component';
+import { NewDevkitComponent} from './newdevkit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    DevkitComponent   
+    DevkitComponent,
+    NewDevkitComponent  
   ],
   imports: [
     CommonModule,
@@ -23,6 +24,7 @@ import { DevkitComponent } from './devkit.component';
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
+      { path: 'create', component: NewDevkitComponent },
       { path: 'devkit/:id', component: DevkitComponent }   
       //{ path: '**', redirectTo: 'home' }
   ])

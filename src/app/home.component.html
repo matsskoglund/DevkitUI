@@ -1,6 +1,6 @@
 <section class="light ux-sections">
         <div class="container text-center" >
-          <img src="assets/icons/fw_dev_onprem.png" style="width:125px;">
+          <img src="assets/icons/template.png" style="width:125px;">
           <div *ngIf="DevkitsInventory">
             <h2>Devkits</h2>
             <p>Below are all our devkits</p>          
@@ -9,17 +9,15 @@
             <table class="table table-striped table-clickable table-panel" *ngIf="DevkitsInventory">
               <thead>
                 <tr>                                
-                  <th>Name</th>                                
-                  <th>Description</th>  
-                  <td>Extra</td>                  
+                  <th><span class="text-nowrap">Name</span></th>                                
+                  <th><span class="text-nowrap">Description</span></th>                  
                 </tr>
               </thead>
               <p *ngIf="!DevkitsInventory"><em>Loading Devkits please Wait ! ...</em></p>
               <tbody *ngFor="let Devkit of DevkitsInventory">                          
                 <tr>                                
-                  <td><a [routerLink]="['/devkit', Devkit.devkitID]"><span class="text-nowrap">{{Devkit.name}}</span></a></td>
-                  <td><a [routerLink]="['/devkit', Devkit.devkitID]">{{Devkit.description}}</a></td>  
-                  <td><a [routerLink]="['/devkit', Devkit.devkitID]">{{Devkit.description}}</a></td>                
+                  <td><a [routerLink]="['/devkit', Devkit.devkitID]"><span class="text-nowrap">{{Devkit.shortName}}</span></a></td>
+                  <td><a [routerLink]="['/devkit', Devkit.devkitID]">{{Devkit.description}}</a></td>                                 
                 </tr>
               </tbody>
              </table>

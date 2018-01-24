@@ -1,0 +1,43 @@
+<section class="light ux-sections">
+    <div class="container text-center" > 
+    
+        <label class="control-label" for="name">Devkit Short Name</label>        
+        <input type="text" #devkitShortName (ngModel)="sShortName" value="{{sShortName}}" class="form-control" placeholder="Short Name" id="sShortName" required>
+    
+    <div class="form-group">
+        <label class="control-label" for="name">Devkit name</label>        
+        <input type="text" #devkitName (ngModel)="sName" class="form-control" placeholder="Awesome Devkit Name" id="sName" required>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="description">Description</label>        
+        <input type="text" #devkitDescription (ngModel)="sDescription"  class="form-control" placeholder="Awesome Devkit Description" id="sDescription" required>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="designer">Designer's email adress</label>        
+        <input type="text" #devkitDesigner (ngModel)="sDesigner" class="form-control" placeholder="john.doe@devkit.com" id="sDesigner" required>
+    </div>      
+      <label class="control-label">Tools
+    </label>    
+      <div class="row">  
+        <table class="table table-striped table-clickable table-panel">
+          <thead>
+            <tr>                                
+              <th>Name</th>                                
+              <th>Description</th>
+              <th><span class="text-nowrap">Get it</span></th>
+            </tr>
+          </thead>
+          <p><em>Loading Tools please Wait ! ...</em></p>
+          <tbody *ngFor="let INVY  of ToolsInventory">                          
+            <tr>                                
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+         </table>
+      </div>
+      <button (click)="addDevkit(devkitShortName.value, devkitName.value, devkitDescription.value, devkitDesigner.value);" 
+      class="btn btn-success">Submit</button>
+    </div> 
+  </section>

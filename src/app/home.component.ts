@@ -27,6 +27,7 @@ export class HomeComponent {
 export interface DevkitMaster {
   devkitID: number;
   name: string;
+  shortName: string;
   description: string;
   email: string;
 }  
