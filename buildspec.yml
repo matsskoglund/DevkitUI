@@ -9,10 +9,12 @@ phases:
             - echo $API_URL
             - chmod 755 environment.sh
             - ls -l src/environments
-            - ./environment.sh
+            - sed -i 's/localhost/${API_URL}/g' src/environments/environment.prod.ts
             - ls -l src/environments
             - cat src/environments/environment.prod.ts
             - echo Installing source NPM dependencies...
+            - npm install
+            - npm install -g @angular/cli
     build:
         commands:
             - echo Build started on `date`
