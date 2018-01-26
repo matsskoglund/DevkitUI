@@ -6,11 +6,12 @@ environment_variables:
 phases:
     install:
         commands:
+            - echo $API_URL
+            - chmod 755 environment.sh
+            - ./environment.sh
             - echo Installing source NPM dependencies...
             - npm install
             - npm install -g @angular/cli
-            - chmod 755 environment.sh
-            - ./environment.sh
     build:
         commands:
             - echo Build started on `date`
