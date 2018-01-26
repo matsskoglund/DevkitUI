@@ -1,7 +1,7 @@
 version: 0.1
 environment_variables:
     plaintext:
-        S3_BUCKET: "http://devkitui.s3-website-eu-west-1.amazonaws.com"
+        S3_BUCKET: "devkitui.s3-website-eu-west-1.amazonaws.com"
         BUILD_ENV: "prod"
 phases:
     install:
