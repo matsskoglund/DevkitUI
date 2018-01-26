@@ -1,1 +1,1 @@
-echo export const environment = { production: true,apiUrl: '$API_URL' }; > environments/environment.prod.ts
+echo export const environment = { production: true,apiUrl: '$API_URL' }; > src/environments/environment.prod.ts
