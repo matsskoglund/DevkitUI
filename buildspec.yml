@@ -6,10 +6,8 @@ environment_variables:
 phases:
     install:
         commands:
-            - echo $API_URL                        
-            - cat src/environments/environment.prod.ts
+            - echo Configuring API endpoint
             - sed -i "s/localhost/$API_URL/g" src/environments/environment.prod.ts
-            - cat src/environments/environment.prod.ts
             - echo Installing source NPM dependencies...
             - npm install
             - npm install -g @angular/cli

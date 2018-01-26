@@ -1,1 +1,0 @@
-sed -i 's/localhost/$API_URL/g' src/environments/environment.prod.ts
