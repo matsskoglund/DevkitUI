@@ -8,24 +8,27 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { DevkitComponent } from './devkit.component';
 import { NewDevkitComponent} from './newdevkit.component';
+import { ToolsComponent} from './tools.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     DevkitComponent,
-    NewDevkitComponent  
+    NewDevkitComponent,
+    ToolsComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     HttpModule,
-    FormsModule,
+    FormsModule,    
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'create', component: NewDevkitComponent },
-      { path: 'devkit/:id', component: DevkitComponent }   
+      { path: 'devkit/:id', component: DevkitComponent },  
+      { path: 'tools', component: ToolsComponent }   
       //{ path: '**', redirectTo: 'home' }
   ])
   ],

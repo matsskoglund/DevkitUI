@@ -1,0 +1,30 @@
+<section class="light ux-sections">
+    <div class="container text-center" >
+      <img src="assets/icons/template.png" style="width:125px;">
+      <div *ngIf="ToolsInventory">
+        <h2>Tools</h2>
+        <p>Below are all tools</p>          
+      </div>
+      <div class="row">  
+        <table class="table table-striped table-clickable table-panel" *ngIf="ToolsInventory">
+          <thead>
+            <tr>                                
+              <th><span class="text-nowrap">Name</span></th>                                
+              <th><span class="text-nowrap">Description</span></th>                  
+              <th><span class="text-nowrap">More info</span></th>  
+              <th><span class="text-nowrap">Aquire</span></th>  
+            </tr>
+          </thead>
+          <p *ngIf="!ToolsInventory"><em>Loading Tools please Wait ! ...</em></p>
+          <tbody *ngFor="let Tool of ToolsInventory">                          
+            <tr>                                
+              <td><span class="text-nowrap">{{Tool.name}}</span></td>
+              <td>{{Tool.description}}</td>   
+              <td><a href="{{Tool.urlRef}}" target="__blank">Link</a></td>                                
+              <td><span class="text-nowrap"><a{{Tool.aquire}} target="__blank">{{Tool.aquireType}}</a></span></td>                                
+            </tr>
+          </tbody>
+         </table>
+      </div>
+    </div>    
+  </section>
