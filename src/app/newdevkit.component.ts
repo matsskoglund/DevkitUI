@@ -2,6 +2,7 @@ import { Component, Input, Inject  } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { FormsModule } from '@angular/forms';  
 import {ActivatedRoute} from "@angular/router";
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'newdevkit',
@@ -18,7 +19,7 @@ export class NewDevkitComponent {
 
   constructor(public http: Http)   
   {
-    this.bseUrl = "http://localhost:5000/";    
+    this.bseUrl = environment.apiUrl;    
   }
 
   submitted = false;

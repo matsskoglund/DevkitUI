@@ -1,6 +1,7 @@
 import { Component, Input, Inject  } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { FormsModule } from '@angular/forms';  
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'home',
@@ -13,7 +14,7 @@ export class HomeComponent {
 
 
   constructor(public http: Http, @Inject('BASE_URL') baseUrl: string) {
-    this.bseUrl = "http://localhost:5000/";
+    this.bseUrl = environment.apiUrl;
     this.getDevKitData();
   }
 

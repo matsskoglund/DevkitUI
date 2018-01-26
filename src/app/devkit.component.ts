@@ -2,6 +2,7 @@ import { Component, Input, Inject  } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { FormsModule } from '@angular/forms';  
 import {ActivatedRoute} from "@angular/router";
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'devkit',
@@ -24,7 +25,7 @@ export class DevkitComponent {
 
   constructor(public http: Http, @Inject('BASE_URL') baseUrl: string, private route: ActivatedRoute) {
     this.myName = "Devkit"; 
-    this.bseUrl = "http://localhost:5000/";
+    this.bseUrl = environment.apiUrl;
     this.route.params.subscribe( params => 
       {
         this.getData(params['id']);
