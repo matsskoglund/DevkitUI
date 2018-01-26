@@ -9,7 +9,7 @@ phases:
             - echo $API_URL
             - chmod 755 environment.sh
             - ls -l
-            - ls -l src
+            - ls -l src/environments
             - ./environment.sh
             - cat src/environments/environment.ts
             - echo Installing source NPM dependencies...
