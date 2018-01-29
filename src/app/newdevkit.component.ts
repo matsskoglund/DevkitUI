@@ -13,13 +13,16 @@ export class NewDevkitComponent {
   public sShortName = "";
   public sName = "";
   public sDesigner = "";
+  public ToolsInventory: ToolsMaster[] = [];
+  public selectedTool:ToolsMaster; 
 
   bseUrl:string;
   public Devkit: DevkitMaster[] = [];
 
   constructor(public http: Http)   
   {
-    this.bseUrl = environment.apiUrl;    
+    this.bseUrl = environment.apiUrl; 
+    this.getToolsData();   
   }
 
   submitted = false;
@@ -33,6 +36,7 @@ export class NewDevkitComponent {
         this.Devkit = result.json();
     }, error => console.error(error));        
   }
+
   addDevkit(sname:string, devkitName: string, devkitDescription: string, designer: string ) {
     console.log("addDevKit");
     console.log(sname);
@@ -47,7 +51,25 @@ export class NewDevkitComponent {
             }
             );
     }
-    
+
+    getToolsData() {
+      this.http.get(this.bseUrl + 'api/Tools/').subscribe(result => {
+          this.ToolsInventory = result.json();
+          this.selectedTool = null;
+      }, error => console.error(error));        
+    }
+    onSelect(toolId) { 
+      this.selectedTool = null;
+      for (var i = 0; i < this.ToolsInventory.length; i++)
+      {        
+        console.log(this.ToolsInventory[i].toolID);
+        if (this.ToolsInventory[i].toolID == toolId) {
+          console.log("Found");
+          this.selectedTool = this.ToolsInventory[i];          
+        }
+      }
+
+  }
 
 }
 
@@ -57,4 +79,13 @@ export interface DevkitMaster {
   name: string;
   description: string;
   email: string;
+}  
+
+export interface ToolsMaster {
+  toolID: number;
+  name: string;
+  description: string;
+  aquire: string;
+  urlRef: string;
+  aquireType: string;
 }  
