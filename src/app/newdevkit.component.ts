@@ -43,13 +43,20 @@ export class NewDevkitComponent {
   }
   addTool(){
     this.newTool = true;
-    this.selectedTool = this.ToolsInventory[0];
-    this.newToolSet.push(this.newAttribute);
-    this.newAttribute = {};
+
+    this.selectedTool = {  toolID: 0,
+      name: "",
+      description: "",
+      aquire: "",
+      urlRef: "",
+      aquireType: "",
+      taken: false,
+     idx: 0};
   }
 
   deleteTool(Id:number){
-   this.newToolSet.splice(Id-1,1);
+   this.newToolSet.splice(Id,1);
+   this.toolsLeft.push(this.ToolsInventory[Id]);
   }
 
   addDevkit(sname:string, devkitName: string, devkitDescription: string, designer: string ) {
@@ -70,22 +77,27 @@ export class NewDevkitComponent {
     getToolsData() {
       this.http.get(this.bseUrl + 'api/Tools/').subscribe(result => {
           this.ToolsInventory = result.json();
-           this.toolsLeft = result.json();
-          this.selectedTool = null;
+          this.toolsLeft = result.json();
+      
       }, error => console.error(error));        
     }
     onSelect(idx:number) { 
+      console.log(idx);
       for (var i = 0; i < this.toolsLeft.length; i++)
       {        
         if (this.toolsLeft[i].toolID == this.selectedToolId) {
-          console.log("Before");
-          console.log(this.newToolSet[idx]);   
-          this.newToolSet[idx] = this.toolsLeft[i];
-           console.log("After");
-          console.log(this.newToolSet[idx]);     
+          console.log(this.toolsLeft[i].toolID);
+          this.selectedTool = this.toolsLeft[i];
+          
         }
       }
     }
+    addNewTool(){
+      this.newToolSet.push(this.selectedTool); 
+      this.toolsLeft.splice(this.selectedTool.toolID - 1,1);
+    }
+
+    
 
 }
 
