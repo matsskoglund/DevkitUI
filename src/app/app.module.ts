@@ -9,6 +9,7 @@ import { HomeComponent } from './home.component';
 import { DevkitComponent } from './devkit.component';
 import { NewDevkitComponent} from './newdevkit.component';
 import { ToolsComponent} from './tools.component';
+import { ModifyDevkitComponent} from './modifydevkit.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ToolsComponent} from './tools.component';
     HomeComponent,
     DevkitComponent,
     NewDevkitComponent,
-    ToolsComponent
+    ToolsComponent,
+    ModifyDevkitComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,7 @@ import { ToolsComponent} from './tools.component';
       { path: 'home', component: HomeComponent },
       { path: 'create', component: NewDevkitComponent },
       { path: 'devkit/:id', component: DevkitComponent },  
+      { path: 'modify/:id', component: ModifyDevkitComponent }, 
       { path: 'tools', component: ToolsComponent }   
       //{ path: '**', redirectTo: 'home' }
   ])
