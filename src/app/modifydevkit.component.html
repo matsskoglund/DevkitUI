@@ -36,24 +36,25 @@
           </thead>
           <p *ngIf="!DevkitToolsInventory"><em>Loading Tools please Wait ! ...</em></p>
           <tbody >                          
-            <tr *ngFor="let INVY  of DevkitToolsInventory">                                
+            <tr *ngFor="let INVY  of DevkitToolsInventory; let i = index">                                
               <td><a href="{{INVY.urlRef}}" target="_blank"><span class="text-nowrap">{{INVY.name}}</span></a></td>
              
               <td>{{INVY.description}}</td>
               <td><a href="{{INVY.aquire}}" target="_blank"><span class="text-nowrap">{{INVY.aquireType}}</span></a></td>
-              <td *ngIf="editMode"><button  class="btn btn-danger btn-md" (click)="deleteDevkitTool()">Delete</button></td>
+              <td *ngIf="editMode"><button  class="btn btn-danger btn-md" (click)="deleteDevkitTool(i)">Delete</button></td>
             </tr>
             <tr><td colspan="4"></td></tr>
-            <tr *ngIf="editMode">
+            <tr *ngIf="editMode && toolsLeft.length > 0">
                 <td>
-                  <div class="text-left">
+                  <div class="text-center">
                       <label class="control-label">Select Tool
-                        </label> <select  name="name{{i}}" [(ngModel)]="selectedToolId" (change)="onSelect(selectedToolId)">                                                      
+                        </label> 
+                        <p><select  name="name{{i}}" [(ngModel)]="selectedToolId" (change)="onSelect(selectedToolId)">                           
                         <option *ngFor="let tool of toolsLeft; let i = index" [value]="i">{{tool.name}}</option>
-                    </select>
+                    </select></p>
                   </div>
                 </td>
-                <td colspan="2" >
+                <td colspan="2">
                     <label class="control-label">Description<br>
                     </label>
                   <div *ngIf="!selectedTool">                      

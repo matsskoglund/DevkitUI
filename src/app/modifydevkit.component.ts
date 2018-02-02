@@ -48,25 +48,43 @@ export class ModifyDevkitComponent {
 
  onSelect(selectedToolId:number){
 
-   this.selectedTool = this.ToolsInventory[selectedToolId];
+   this.selectedTool = this.toolsLeft[selectedToolId];
  }
   updateToolsLeft(){
     this.toolsLeft = this.ToolsInventory.slice(0);
-
-
     for( var i=this.toolsLeft.length - 1; i>=0; i--){
+     
        for( var j=0; j<this.DevkitToolsInventory.length; j++){
            if(this.toolsLeft[i] && (this.toolsLeft[i].toolID === this.DevkitToolsInventory[j].toolID)){
             this.toolsLeft.splice(i, 1);
           }
         }
     }
-
+    
+;
+  }
+  addNewTool(){
+    this.DevkitToolsInventory.push(this.selectedTool); 
+    this.updateToolsLeft();
+    this.selectedTool = null;
+    this.selectedToolId = -1;
   }
 
   save(devkit: DevkitMaster)
   {
     this.editMode = false; 
+  }
+
+  cancel()
+  {
+//    this.editMode = false; 
+  }
+
+  deleteDevkitTool(Id:number)
+  {    
+    var obj = this.DevkitToolsInventory.splice(Id,1);
+    this.toolsLeft.push(obj[0]);
+
   }
   /*getData(devkitid: number) {
     this.http.get(this.bseUrl + 'api/Devkits/tools/' + devkitid).subscribe(result => {

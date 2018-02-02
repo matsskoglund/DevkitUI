@@ -28,12 +28,12 @@ export class DevkitComponent {
     this.bseUrl = environment.apiUrl;
     this.route.params.subscribe( params => 
       {
-        this.getData(params['id']);
+        this.getDevkitTools(params['id']);
         this.getDevKitData(params['id']);
       }
     );
   }
-  getData(devkitid: number) {
+  getDevkitTools(devkitid: number) {
     this.http.get(this.bseUrl + 'api/Devkits/tools/' + devkitid).subscribe(result => {
         this.ToolsInventory = result.json();
         

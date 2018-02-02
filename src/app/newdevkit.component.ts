@@ -42,21 +42,8 @@ export class NewDevkitComponent {
         this.Devkit = result.json();
     }, error => console.error(error));        
   }
-  /*addTool(){
-    this.newTool = true;
-
-    this.selectedTool = {  toolID: 0,
-      name: "",
-      description: "",
-      aquire: "",
-      urlRef: "",
-      aquireType: "",
-      taken: false,
-     idx: 0};
-  }*/
 
   deleteTool(Id:number){
-    console.log("deleting " + Id);
     var obj = this.newToolSet.splice(Id,1);
     this.toolsLeft.push(obj[0]);
   }
@@ -95,9 +82,7 @@ export class NewDevkitComponent {
               }
             }, error => {
             }
-            );          
-
-           
+            );                     
     }
 
     getToolsData() {
@@ -108,7 +93,7 @@ export class NewDevkitComponent {
       }, error => console.error(error));        
     }
     onSelect(idx:number) { 
-      console.log(idx);
+     
       for (var i = 0; i < this.toolsLeft.length; i++)
       {        
         if (this.toolsLeft[i].toolID == this.selectedToolId) {
