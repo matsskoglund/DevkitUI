@@ -1,33 +1,75 @@
 <section class="light ux-sections">
     <div class="container text-center" >          
-      <div *ngIf="Devkit">
-      <h2 id="Devkit.name" *ngIf="!editMode" (click)="handleClick()">{{Devkit.name}}</h2>
+      <div *ngIf="Devkit"> 
+                 
+      <h2 id="Devkit.name" *ngIf="!editMode">{{Devkit.name}}</h2>       
+          
       <span *ngIf="editMode">
+          <label class="control-label">Name</label>  
         <input type="text" #devkitName class="form-control" [(ngModel)]="Devkit.name" value={{Devkit.name}}>
-        <button (click)="save(Devkit); editMode = false">Save</button>
+    
       </span>
          </div>
-      <p>{{Devkit.description}}</p>
-      <i>Designed by {{Devkit.email}}</i>
+      <p id="Devkit.description" *ngIf="!editMode">{{Devkit.description}}</p>
+
+      <span *ngIf="editMode">
+          <label class="control-label">Description</label>  
+      <input type="text" #devkitDescription class="form-control" [(ngModel)]="Devkit.description" value={{Devkit.description}}>
+    </span>
+    
+      <i *ngIf="!editMode">Designed by {{Devkit.email}}</i>
+      <span *ngIf="editMode">
+          <label class="control-label">Designer</label>  
+      <input type="text" #devkitDesigner class="form-control" [(ngModel)]="Devkit.email" value={{Devkit.email}}>
+    </span>
+
     </div>
-      <div class="row">  
-        <table class="table table-striped table-clickable table-panel" *ngIf="ToolsInventory">
+      <div>
+        <table class="table table-striped table-panel" *ngIf="DevkitToolsInventory">
           <thead>
             <tr>                                
               <th>Name</th>                                
               <th>Description</th>
               <th><span class="text-nowrap">Get it</span></th>
+              <th *ngIf="editMode">Action</th>
             </tr>
           </thead>
-          <p *ngIf="!ToolsInventory"><em>Loading Tools please Wait ! ...</em></p>
-          <tbody *ngFor="let INVY  of ToolsInventory">                          
-            <tr>                                
+          <p *ngIf="!DevkitToolsInventory"><em>Loading Tools please Wait ! ...</em></p>
+          <tbody >                          
+            <tr *ngFor="let INVY  of DevkitToolsInventory">                                
               <td><a href="{{INVY.urlRef}}" target="_blank"><span class="text-nowrap">{{INVY.name}}</span></a></td>
+             
               <td>{{INVY.description}}</td>
               <td><a href="{{INVY.aquire}}" target="_blank"><span class="text-nowrap">{{INVY.aquireType}}</span></a></td>
+              <td *ngIf="editMode"><button  class="btn btn-danger btn-md" (click)="deleteDevkitTool()">Delete</button></td>
             </tr>
+            <tr><td colspan="4"></td></tr>
+            <tr *ngIf="editMode">
+                <td>
+                  <div class="text-left">
+                      <label class="control-label">Select Tool
+                        </label> <select  name="name{{i}}" [(ngModel)]="selectedToolId" (change)="onSelect(selectedToolId)">                                                      
+                        <option *ngFor="let tool of toolsLeft; let i = index" [value]="i">{{tool.name}}</option>
+                    </select>
+                  </div>
+                </td>
+                <td colspan="2" >
+                    <label class="control-label">Description<br>
+                    </label>
+                  <div *ngIf="!selectedTool">                      
+                        Select tool from the drop down to the left. Add it to the Devkit using the Add button to the right.                          
+                      </div>
+                    <div class="text-left" *ngIf="selectedTool" >{{selectedTool.description}}</div>
+                  </td>
+                  <td><span class="text-nowrap"><button class="btn btn-default" (click)=addNewTool(selectedTool.toolID)>Add</button></span></td> 
+                  </tr>
           </tbody>
          </table>
       </div>
-    
+      <div class="row text-center">        
+          <button *ngIf="!editMode" class="btn btn-default" (click)="edit()">Edit</button>
+          <button *ngIf="editMode" class="btn btn-success"(click)="save(Devkit); editMode = false">Save</button>
+          <button *ngIf="editMode" class="btn btn-default"(click)="cancel(Devkit); editMode = false">Cancel</button>
+      </div>
+
   </section>
