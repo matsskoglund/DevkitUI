@@ -20,7 +20,6 @@ export class ToolsComponent {
   getToolsData() {
     this.http.get(this.bseUrl + 'api/Tools/').subscribe(result => {
         this.ToolsInventory = result.json();
-        console.log(result.json());
     }, error => console.error(error));        
   }
 }

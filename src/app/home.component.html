@@ -16,8 +16,8 @@
               <p *ngIf="!DevkitsInventory"><em>Loading Devkits please Wait ! ...</em></p>
               <tbody *ngFor="let Devkit of DevkitsInventory">                          
                 <tr>                                
-                  <td><a [routerLink]="['/devkit', Devkit.devkitID]"><span class="text-nowrap">{{Devkit.shortName}}</span></a></td>
-                  <td><a [routerLink]="['/devkit', Devkit.devkitID]">{{Devkit.description}}</a></td>                                 
+                  <td><a [routerLink]="['/modify', Devkit.devkitID]"><span class="text-nowrap">{{Devkit.shortName}}</span></a></td>
+                  <td><a [routerLink]="['/modify', Devkit.devkitID]">{{Devkit.description}}</a></td>                                 
                 </tr>
               </tbody>
              </table>

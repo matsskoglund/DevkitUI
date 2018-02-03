@@ -1,9 +1,12 @@
 import { Component, Input, Inject  } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Response, Headers, RequestOptions } from '@angular/http';
 import { FormsModule } from '@angular/forms';  
 import {ActivatedRoute} from "@angular/router";
+import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
-
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'devkit',
   templateUrl: './modifydevkit.component.html'
@@ -14,8 +17,16 @@ export class ModifyDevkitComponent {
   public editMode: boolean = false;
   public ToolsInventory: InventoryMaster[] = [];
   public DevkitToolsInventory: InventoryMaster[] = [];
+  public DevkitToolsOriginal: InventoryMaster[] = [];
+  public DevkitOriginal: DevkitMaster;
   public toolsLeft: InventoryMaster[] = [];
-  public Devkit: DevkitMaster[] = [];
+  public Devkit: DevkitMaster = {
+    devkitID: 0,
+    shortName:"",
+    name: "",
+    description: "",
+    email: ""
+  };
   AddTable: Boolean = false;  
   public sToolID: number = 0;
   public sAquire = "";
@@ -27,24 +38,68 @@ export class ModifyDevkitComponent {
   myName: string;
   public selectedToolId: number;
   public selectedTool:Tool; 
-  constructor(public http: Http, @Inject('BASE_URL') baseUrl: string, private route: ActivatedRoute) {
+  dirty:boolean = false;
+
+  constructor(public http: HttpClient, @Inject('BASE_URL') baseUrl: string, private route: ActivatedRoute) {
     this.myName = "Devkit"; 
     this.bseUrl = environment.apiUrl;
     this.route.params.subscribe( params => 
       {
-        this.getDevkitTools(params['id']);
-        this.getDevKitData(params['id']);   
+        this.getDevKitData(params['id']);  
+        this.getDevkitTools(params['id']);         
         this.getAllTools();       
       }
     );
   }
 
-  edit(){
-      this.editMode =true;
-   
-      
-      this.updateToolsLeft();
+  getDevKitData(devkitid: number){
+    this.http.get<DevkitMaster>(this.bseUrl + 'api/Devkits/' + devkitid)
+    .subscribe(devk => {
+          this.Devkit = devk;
+        });
   }
+
+
+
+  getDevkitTools(devkitid: number) {
+    this.http.get<InventoryMaster[]>(this.bseUrl + 'api/Devkits/tools/' + devkitid).subscribe(result => {
+        this.DevkitToolsInventory = result;
+        
+    }, error => console.error(error));        
+  }
+  getAllTools() {
+    this.http.get<InventoryMaster[]>(this.bseUrl + 'api/Tools/').subscribe(result => {
+        this.ToolsInventory = result;
+
+    }, error => console.error(error));        
+  }
+
+  edit(){
+    this.editMode =true;
+    // Create a copy of original devkit  
+    this.DevkitToolsOriginal = this.DevkitToolsInventory.slice(0);    
+    
+    this.DevkitOriginal = {      
+      devkitID: this.Devkit.devkitID,
+      shortName:this.Devkit.shortName,
+      name: this.Devkit.name,
+      description: this.Devkit.description,
+      email: this.Devkit.email
+    };
+    this.updateToolsLeft();
+}
+  cancel()
+  {
+    this.DevkitToolsInventory = this.DevkitToolsOriginal.slice(0);
+    this.Devkit = this.DevkitOriginal;
+  }
+
+  deleteDevkitTool(Id:number)
+  {    
+    var obj = this.DevkitToolsInventory.splice(Id,1);
+    this.toolsLeft.push(obj[0]);
+  }
+
 
  onSelect(selectedToolId:number){
 
@@ -60,9 +115,8 @@ export class ModifyDevkitComponent {
           }
         }
     }
-    
-;
   }
+
   addNewTool(){
     this.DevkitToolsInventory.push(this.selectedTool); 
     this.updateToolsLeft();
@@ -73,43 +127,30 @@ export class ModifyDevkitComponent {
   save(devkit: DevkitMaster)
   {
     this.editMode = false; 
-  }
-
-  cancel()
-  {
-//    this.editMode = false; 
-  }
-
-  deleteDevkitTool(Id:number)
-  {    
-    var obj = this.DevkitToolsInventory.splice(Id,1);
-    this.toolsLeft.push(obj[0]);
-
-  }
-  /*getData(devkitid: number) {
-    this.http.get(this.bseUrl + 'api/Devkits/tools/' + devkitid).subscribe(result => {
-        this.ToolsInventory = result.json();
-        
-    }, error => console.error(error));        
-  }*/
-
-  getDevkitTools(devkitid: number) {
-    this.http.get(this.bseUrl + 'api/Devkits/tools/' + devkitid).subscribe(result => {
-        this.DevkitToolsInventory = result.json();
-        
-    }, error => console.error(error));        
-  }
-  getAllTools() {
-    this.http.get(this.bseUrl + 'api/Tools/').subscribe(result => {
-        this.ToolsInventory = result.json();
-
-    }, error => console.error(error));        
-  }
-  
-  getDevKitData(devkitid: number) {
-    this.http.get(this.bseUrl + 'api/Devkits/' + devkitid).subscribe(result => {
-        this.Devkit = result.json();
-    }, error => console.error(error));        
+    var theDevkit:DevkitMaster;
+    var headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+   // headers.append('Content-Type', 'application/json; charset=utf-8');
+    const req = this.http.delete(this.bseUrl + 'api/Devkits/tools/'+ this.Devkit.devkitID,
+    { headers: headers });
+    req.subscribe(
+      response => {
+        for (var i = 0, len = this.DevkitToolsInventory.length; i < len; i++) {                         
+          var req2 = this.http.post(this.bseUrl + 'api/Devkits/tools/', JSON.stringify({ 
+            DevkitID: this.Devkit.devkitID, 
+            ToolId: this.DevkitToolsInventory[i].toolID, 
+            ToolType: "Core"}),
+          { headers: headers });
+          req2.subscribe(
+          response => {
+          }, error => {
+          }
+        );
+      }
+    }, error => {
+    }
+    );                     
+}
   }
 }
 

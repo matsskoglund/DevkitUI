@@ -34,8 +34,6 @@ export class NewDevkitComponent {
   submitted = false;
   onSubmit(devkit:any) { 
     this.submitted = true; 
-    console.log("Submitted");
-    console.log(devkit);
   }
   getDevKitData(devkitid: number) {
     this.http.get(this.bseUrl + 'api/Devkits/' + devkitid).subscribe(result => {
@@ -49,33 +47,22 @@ export class NewDevkitComponent {
   }
 
   addDevkit(sname:string, devkitName: string, devkitDescription: string, designer: string ) {
-    console.log("addDevKit");
-    console.log(sname);
+
     var headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
-  /*  this.http.post(this.bseUrl + 'api/Devkits/', JSON.stringify({ shortName: sname, name: devkitName, description: devkitDescription, email: designer}),
-            { headers: headers }).subscribe(
-            response => {
-                this.getDevKitData(1);
 
-            }, error => {
-            }
-            );*/
     var theDevkit:DevkitMaster;
     const req = this.http.post(this.bseUrl + 'api/Devkits/', JSON.stringify({ shortName: sname, name: devkitName, description: devkitDescription, email: designer}),
             { headers: headers });
     req.subscribe(
             response => {
               theDevkit = response.json();
-                console.log(theDevkit);
-                console.log("Json");
-                console.log(response.json());
+  
                 for (var i = 0, len = this.newToolSet.length; i < len; i++) {                         
-                  var req2 = this.http.post(this.bseUrl + 'api/Devkits/devkitstools/', JSON.stringify({ DevkitID: theDevkit.devkitID, ToolId: this.newToolSet[i].toolID, ToolType: "Core"}),
+                  var req2 = this.http.post(this.bseUrl + 'api/Devkits/tools/', JSON.stringify({ DevkitID: theDevkit.devkitID, ToolId: this.newToolSet[i].toolID, ToolType: "Core"}),
                   { headers: headers });
                   req2.subscribe(
                   response => {
-                    console.log(response);
                   }, error => {
                   }
                 );
@@ -97,7 +84,6 @@ export class NewDevkitComponent {
       for (var i = 0; i < this.toolsLeft.length; i++)
       {        
         if (this.toolsLeft[i].toolID == this.selectedToolId) {
-          console.log(this.toolsLeft[i].toolID);
           this.selectedTool = this.toolsLeft[i];
           
         }

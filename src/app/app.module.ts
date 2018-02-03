@@ -11,6 +11,7 @@ import { NewDevkitComponent} from './newdevkit.component';
 import { ToolsComponent} from './tools.component';
 import { ModifyDevkitComponent} from './modifydevkit.component';
 import { enableProdMode } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 enableProdMode();
 @NgModule({
@@ -20,12 +21,13 @@ enableProdMode();
     DevkitComponent,
     NewDevkitComponent,
     ToolsComponent,
-    ModifyDevkitComponent
+    ModifyDevkitComponent   
   ],
   imports: [
     CommonModule,
     BrowserModule,
     HttpModule,
+    HttpClientModule,
     FormsModule,    
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
