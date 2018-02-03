@@ -152,7 +152,7 @@ export class ModifyDevkitComponent {
     );                     
 }
   }
-}
+
 
 export interface InventoryMaster {
   toolID: number;
