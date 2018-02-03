@@ -10,7 +10,9 @@ import { DevkitComponent } from './devkit.component';
 import { NewDevkitComponent} from './newdevkit.component';
 import { ToolsComponent} from './tools.component';
 import { ModifyDevkitComponent} from './modifydevkit.component';
+import { enableProdMode } from '@angular/core';
 
+enableProdMode();
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +42,7 @@ import { ModifyDevkitComponent} from './modifydevkit.component';
 ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
 export function getBaseUrl() {
   return document.getElementsByTagName('base')[0].href;

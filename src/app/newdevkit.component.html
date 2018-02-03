@@ -26,7 +26,7 @@
     <td>
       <div class="text-left">
           <label class="control-label">Select Tool
-            </label> <select  name="name{{i}}" [(ngModel)]="selectedToolId" (change)="onSelect(selectedToolId)">                                                      
+            </label> <select  name="name" [(ngModel)]="selectedToolId" (change)="onSelect(selectedToolId)">                                                      
             <option *ngFor="let tool of toolsLeft" [value]="tool.toolID" >{{tool.name}}</option>
         </select>
       </div>
@@ -35,7 +35,7 @@
       <div *ngIf="!selectedTool">Select tool from the drop down to the left. Add it to the Devkit using the Add button to the right.</div>
         <div class="text-left" *ngIf="selectedTool" >{{selectedTool.description}}</div>
       </td>
-      <td><span class="text-nowrap"><button class="btn btn-default" (click)=addNewTool(selectedTool.toolID)>Add</button></span></td> 
+      <td><span class="text-nowrap"><button class="btn btn-default" (click)=addNewTool()>Add</button></span></td> 
       </tr>
     </table>
 
