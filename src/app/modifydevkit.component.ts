@@ -130,7 +130,8 @@ export class ModifyDevkitComponent {
     var theDevkit:DevkitMaster;
     var headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-   // headers.append('Content-Type', 'application/json; charset=utf-8');
+    this.saveDevkit(this.Devkit.devkitID, this.Devkit.shortName, this.Devkit.name, this.Devkit.description, this.Devkit.email);
+
     const req = this.http.delete(this.bseUrl + 'api/Devkits/tools/'+ this.Devkit.devkitID,
     { headers: headers });
     req.subscribe(
@@ -151,7 +152,22 @@ export class ModifyDevkitComponent {
     }
     );                     
 }
+saveDevkit(devkitID: number, sname:string, devkitName: string, devkitDescription: string, designer: string ) {
+
+  var headers = new HttpHeaders();
+  headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+
+  var theDevkit:DevkitMaster;
+  const req = this.http.put(this.bseUrl + 'api/Devkits/'+devkitID, JSON.stringify({ devkitID: devkitID, shortName: sname, name: devkitName, description: devkitDescription, email: designer}),
+          { headers: headers });
+  req.subscribe(
+          response => {
+            // No response expected
+          }, error => {
+          }
+          );                     
   }
+}
 
 
 export interface InventoryMaster {
