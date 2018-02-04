@@ -107,8 +107,7 @@ export class ModifyDevkitComponent {
  }
   updateToolsLeft(){
     this.toolsLeft = this.ToolsInventory.slice(0);
-    for( var i=this.toolsLeft.length - 1; i>=0; i--){
-     
+    for( var i=this.toolsLeft.length - 1; i>=0; i--){     
        for( var j=0; j<this.DevkitToolsInventory.length; j++){
            if(this.toolsLeft[i] && (this.toolsLeft[i].toolID === this.DevkitToolsInventory[j].toolID)){
             this.toolsLeft.splice(i, 1);
