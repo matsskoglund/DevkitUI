@@ -7,6 +7,8 @@ import { environment } from '../environments/environment';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'devkit',
   templateUrl: './modifydevkit.component.html'
@@ -40,7 +42,7 @@ export class ModifyDevkitComponent {
   public selectedTool:Tool; 
   dirty:boolean = false;
 
-  constructor(public http: HttpClient, @Inject('BASE_URL') baseUrl: string, private route: ActivatedRoute) {
+  constructor(private router: Router, public http: HttpClient, @Inject('BASE_URL') baseUrl: string, private route: ActivatedRoute) {
     this.myName = "Devkit"; 
     this.bseUrl = environment.apiUrl;
     this.route.params.subscribe( params => 
@@ -165,6 +167,27 @@ saveDevkit(devkitID: number, sname:string, devkitName: string, devkitDescription
           }, error => {
           }
           );                     
+  }
+  delete() {
+    if(confirm("Are you sure to delete the devkit \"" + this.Devkit.name + "\"")) {
+      var headers = new HttpHeaders();
+      headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    
+     
+      const req = this.http.delete(this.bseUrl + 'api/Devkits/' + this.Devkit.devkitID,
+              { headers: headers });
+      req.subscribe(
+              response => {
+                var req2 = this.http.delete(this.bseUrl + 'api/DevkitTools/'+ this.Devkit.devkitID,
+                { headers: headers });
+              req2.subscribe(
+                response => {
+                  this.router.navigate(["/home"]);
+                }, error => {
+              }
+              );                     
+      });
+    }
   }
 }
 

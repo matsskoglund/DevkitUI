@@ -69,6 +69,7 @@
       </div>
       <div class="row text-center">        
           <button *ngIf="!editMode" class="btn btn-default" (click)="edit()">Edit</button>
+          <button *ngIf="!editMode" class="btn btn-danger" (click)="delete()">Delete</button>
           <button *ngIf="editMode" class="btn btn-success"(click)="save(Devkit); editMode = false">Save</button>
           <button *ngIf="editMode" class="btn btn-default"(click)="cancel(Devkit); editMode = false">Cancel</button>
       </div>
