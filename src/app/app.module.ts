@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
+import { RouterOutlet, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { DevkitComponent } from './devkit.component';
 import { NewDevkitComponent} from './newdevkit.component';
@@ -22,7 +22,7 @@ enableProdMode();
     DevkitComponent,
     NewDevkitComponent,
     ToolsComponent,
-    ModifyDevkitComponent   
+    ModifyDevkitComponent,
   ],
   imports: [
     CommonModule,
