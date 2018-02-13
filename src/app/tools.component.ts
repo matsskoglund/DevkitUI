@@ -69,6 +69,22 @@ export class ToolsComponent {
       
 
     }
+
+    saveEditedTool(){
+    var headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+     var req = this.http.put<ToolsMaster>(this.bseUrl + 'api/tools/', JSON.stringify({ 
+      Name: this.newTool.name, URLRef: this.newTool.urlRef, Description: this.newTool.description, Aquire: this.newTool.aquire, AquireType: this.newTool.aquireType
+
+   }),
+            { headers: headers });
+            req.subscribe(
+              response => {
+              }, error => {
+              }
+              );        
+  }
+  
   deleteTool(toolid: number)
   {
     var headers = new HttpHeaders();
@@ -85,6 +101,24 @@ export class ToolsComponent {
      }      
     });       
   }
+
+  editTool(toolID, name, description, urlRef, aquire, aquireType)
+  {
+      this.newTool.toolID = toolID;
+      this.newTool.name = name;
+      this.newTool.description = description;
+      this.newTool.urlRef = urlRef;
+      this.newTool.aquire = aquire;
+      this.newTool.aquireType = aquireType;      
+  }
+  clearTool()
+  {
+    this.newTool.toolID =0,
+    this.newTool.aquire = "",
+    this.newTool.aquireType = "",
+    this.newTool.description="",
+    this.newTool.name="",
+    this.newTool.urlRef=""  }
 }
 
 export interface ToolsMaster {

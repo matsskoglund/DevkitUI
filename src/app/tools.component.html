@@ -13,15 +13,63 @@
             <button *ngIf="editMode" class="btn btn-success btn-md" (click)="editMode = false">Done
             </button></span>
             </div>
-      <table class="table table-striped table-clickable table-panel" *ngIf="ToolsInventory">
-        <thead>
-          
+            <div class="panel panel-primary" *ngIf="editMode">                          
+              <h3>Add edit tool</h3>
+              <div class="col-xs-12 col-md-3">
+                <div class="form-group">
+                  <label class="control-label">Tool name</label>
+                  <input type="text"  #name id="toolName" class="form-control" placeholder="Supertool" [(ngModel)]="newTool.name" >
+                </div>          
+              </div>
+              <div class="fcol-xs-12 col-md-9">
+                <div class="form-group">
+                  <label class="control-label nowrap">Description</label>
+                  <input type="text" class="form-control" placeholder="Description of the tool" [(ngModel)]="newTool.description" >
+                </div>
+              </div>
+              <div class="fcol-xs-12 col-md-9">
+                <div class="form-group">
+                  <label class="control-label nowrap">Info URL</label>
+                  <input type="text" class="form-control" placeholder="http://www.toolinfo.org" [(ngModel)]="newTool.urlRef" >
+                </div>
+              </div>
+              <div class="fcol-xs-12 col-md-3">
+                <div class="form-group">
+                  <label class="control-label nowrap">Tool Id</label>
+                  <input type="text" class="form-control"  [(ngModel)]="newTool.toolID" readonly >
+                </div>
+              </div>
+
+              <div class="fcol-xs-12 col-md-9">
+                <div class="form-group">
+                  <label class="control-label nowrap">Aquire URL</label>
+                  <input type="text" class="form-control" placeholder="http://www.downloadtool.com/download" [(ngModel)]="newTool.aquire" >
+                </div>
+              </div>
+              <div class="fcol-xs-12 col-md-3">
+                <div class="form-group">
+                  <label class="control-label nowrap">Aquire Type</label>
+                  <input type="text" class="form-control" placeholder="Download" [(ngModel)]="newTool.aquireType" >
+                </div>
+              </div>
+              <div class="fcol-xs-12 col-md-2">
+                <div class="form-group">
+                  <button *ngIf="newTool.toolID == 0" class="btn btn-success" (click)=addNewTool()>Add</button>                
+                  <!--<button *ngIf="newTool.toolID != 0" class="btn btn-success" (click)=saveEditedTool()>Save</button>                -->
+                  <button class="btn btn-success" (click)=clearTool()>Clear</button>                
+                </div>
+              </div>
+            </div>
+                  
+      <table class="table  table-striped table-panel" *ngIf="ToolsInventory">
+        <thead>          
           <tr>                                
             <th><span class="text-nowrap">Name</span></th>                             
             <th><span class="text-nowrap">Description</span></th>                  
             <th><span class="text-nowrap">More info</span></th>  
             <th><span class="text-nowrap">Aquire</span></th>              
-            <th *ngIf="editMode"><span class="text-nowrap">Delete</span></th>              
+            <th *ngIf="editMode"><span class="text-nowrap">Delete</span></th>            
+            <th *ngIf="editMode"><span class="text-nowrap">Edit</span></th>            
           </tr>          
         </thead>
         <p *ngIf="!ToolsInventory"><em>Loading Tools please Wait ! ...</em></p>
@@ -32,52 +80,10 @@
             <td><a href="{{Tool.urlRef}}" target="__blank">Link</a></td>               
             <td><span class="text-nowrap"><a href="{{Tool.aquire}}" target="__blank">{{Tool.aquireType}}</a></span></td>              
             <td *ngIf="editMode"><button  class="btn btn-danger btn-md" (click)="deleteTool(Tool.toolID)">Delete</button></td>              
+            <td *ngIf="editMode"><button  class="btn btn-default btn-md" (click)="editTool(Tool.toolID, Tool.name, Tool.description, Tool.urlRef, Tool.aquire, Tool.aquireType)">Edit</button></td>              
           </tr>
         </tbody>
       </table>          
-      <div class="panel panel-primary" *ngIf="editMode">                          
-
-            <h3>Add new tool</h3>
-            <div class="col-xs-12 col-md-3">
-                <div class="form-group">
-                  <label class="control-label">Tool name</label>
-                  <input type="text"  #name id="toolName" class="form-control" placeholder="Supertool" [(ngModel)]="newTool.name" >
-                </div>
-                
-              </div>
-              <div class="fcol-xs-12 col-md-9">
-                <div class="form-group">
-                  <label class="control-label nowrap">Description</label>
-                  <input type="text" class="form-control" placeholder="Description of the tool" [(ngModel)]="newTool.description" >
-                </div>
-              </div>
-              <div class="fcol-xs-12 col-md-9">
-                  <div class="form-group">
-                    <label class="control-label nowrap">Info URL</label>
-                    <input type="text" class="form-control" placeholder="http://www.toolinfo.org" [(ngModel)]="newTool.urlRef" >
-                  </div>
-                </div>
-                <div class="fcol-xs-12 col-md-9">
-                    <div class="form-group">
-                      <label class="control-label nowrap">Aquire URL</label>
-                      <input type="text" class="form-control" placeholder="http://www.downloadtool.com/download" [(ngModel)]="newTool.aquire" >
-                    </div>
-                  </div>
-                  <div class="fcol-xs-12 col-md-3">
-                      <div class="form-group">
-                        <label class="control-label nowrap">Aquire Type</label>
-                        <input type="text" class="form-control" placeholder="Download" [(ngModel)]="newTool.aquireType" >
-                      </div>
-                  </div>
-                  <div class="fcol-xs-12 col-md-2">
-                      <div class="form-group">
-                          <button class="btn btn-success" (click)=addNewTool(newTool)>Add  
-                            </button>                
-                      </div>
-                  </div>
-
-      </div>
-
     </div>          
   </div>
 
