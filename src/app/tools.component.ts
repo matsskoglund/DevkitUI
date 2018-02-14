@@ -73,13 +73,15 @@ export class ToolsComponent {
     saveEditedTool(){
     var headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-     var req = this.http.put<ToolsMaster>(this.bseUrl + 'api/tools/', JSON.stringify({ 
-      Name: this.newTool.name, URLRef: this.newTool.urlRef, Description: this.newTool.description, Aquire: this.newTool.aquire, AquireType: this.newTool.aquireType
-
-   }),
+    var req = this.http.put<ToolsMaster>(this.bseUrl + 'api/Tools/' + this.newTool.toolID, JSON.stringify({ 
+      ToolID: this.newTool.toolID, Name: this.newTool.name, URLRef: this.newTool.urlRef, Description: this.newTool.description, Aquire: this.newTool.aquire, AquireType: this.newTool.aquireType
+    }),
             { headers: headers });
             req.subscribe(
               response => {
+                this.getToolsData();
+                this.clearTool();
+                this.editMode = false;
               }, error => {
               }
               );        
